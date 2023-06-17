@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      database: ${PROD_DB_DATABASE}
+      uri: ${PROD_DB_URI}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${PROD_AUTH_SERVER_URL}
