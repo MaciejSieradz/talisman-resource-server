@@ -1,15 +1,19 @@
 package com.talismanresourceserver.integration.controller;
 
+import com.talismanresourceserver.controller.DeckStatisticsController;
 import com.talismanresourceserver.model.Card;
 import com.talismanresourceserver.model.Deck;
 import com.talismanresourceserver.model.type.CardType;
 import com.talismanresourceserver.model.type.FightType;
 import com.talismanresourceserver.service.CardService;
+import com.talismanresourceserver.service.StatisticsService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebFlux;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,16 +24,23 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-@WebFluxTest
+@WebFluxTest()
 public class DeckControllerWebOnlyTests{
 
     @MockBean
     private CardService cardService;
 
+    @MockBean
+    private DeckStatisticsController deckStatisticsController;
+
+    @MockBean
+    private StatisticsService statisticsService;
+
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
+    @WithMockUser
     void shouldReturnDecks() {
 
         var decks = List.of(
@@ -55,6 +66,7 @@ public class DeckControllerWebOnlyTests{
     }
 
     @Test
+    @WithMockUser
     void shouldReturnDeckByName() {
         var deck = Deck.builder().nameOfDeck("test-deck").build();
 
@@ -74,6 +86,7 @@ public class DeckControllerWebOnlyTests{
     }
 
     @Test
+    @WithMockUser
     void shouldReturnCardFromDeckByName() {
 
         var card = Card.builder().name("name-of-card").build();
@@ -95,6 +108,7 @@ public class DeckControllerWebOnlyTests{
     }
 
     @Test
+    @WithMockUser
     void shouldReturnCardsOfTypeFromDeck() {
 
         var cards = List.of(
@@ -121,6 +135,7 @@ public class DeckControllerWebOnlyTests{
     }
 
     @Test
+    @WithMockUser
     void shouldReturnEnemies() {
         var cards = List.of(
                 Card.builder().name("enemy-one").type(CardType.WRÓG).fight_statistic(FightType.MOC).build(),
