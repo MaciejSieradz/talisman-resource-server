@@ -23,21 +23,20 @@ To run this application, you can simply run it inside your IDE. You can also use
 
 ## Build
 
-If you want to have just `.jar` file you can simply use `./gradlew build` command. There is also a possibility to create
-docker file using Dockerfile I've created. You can build and image with the following command:
+If you want to have just `.jar` file you can simply use `./gradlew build` command. \
+For now, I didn't create a seperate `Dockerfile`. If you want to create a docker image, just use a default gradle build
 
 ```shell
-docker build -t myorg/myapp .
+./gradlew bootBuildImage --imageName=myorg/myapp
 ```
 
 After that you can just simply run docker container from this image: 
 
 ```shell
-docker run --rm -p 8080:8080 myorg/myapp
+docker run -p 8080:8080 -t myorg/myapp
 ```
 
-For now, this is just a simple Dockerfile. I am deploying my application to [railway.app](railway.app), so
-there is no `VOLUME /tmp`. When I will create more applications for backend(make use
+When I will create more applications for backend(make use
 of authorization server, service for more advanced statistics and maybe some other),
 I will most likely merge all this services to one repository and create `docker-compose.yml` file, so it will
-be easy to just run everything with only one command. Also i will upgrade `Dockerfiles`. But for now, stay tunned!
+be easy to just run everything with only one command. Also, I will create `Dockerfiles`. But for now, stay tunned!
