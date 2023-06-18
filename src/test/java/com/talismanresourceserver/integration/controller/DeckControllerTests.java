@@ -68,7 +68,7 @@ public class DeckControllerTests {
     @Test
     void shouldReturnDecks() {
         webTestClient.get()
-                .uri("/api")
+                .uri("/api/decks")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Deck.class)
@@ -84,7 +84,7 @@ public class DeckControllerTests {
     @Test
     void shouldReturnDeckErrorResponse() {
         webTestClient.get()
-                .uri("/api/invalid-deck-name")
+                .uri("/api/decks/invalid-deck-name")
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ExceptionResponseDTO.class)

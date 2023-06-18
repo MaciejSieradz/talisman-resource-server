@@ -1,5 +1,6 @@
 package com.talismanresourceserver.integration.controller;
 
+import com.talismanresourceserver.controller.DeckController;
 import com.talismanresourceserver.controller.DeckStatisticsController;
 import com.talismanresourceserver.model.Card;
 import com.talismanresourceserver.model.Deck;
@@ -24,17 +25,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-@WebFluxTest()
+@WebFluxTest(controllers = DeckController.class)
 public class DeckControllerWebOnlyTests{
 
     @MockBean
     private CardService cardService;
-
-    @MockBean
-    private DeckStatisticsController deckStatisticsController;
-
-    @MockBean
-    private StatisticsService statisticsService;
 
     @Autowired
     private WebTestClient webTestClient;
@@ -51,7 +46,7 @@ public class DeckControllerWebOnlyTests{
         given(cardService.getAllDecks()).willReturn(Flux.fromIterable(decks));
 
         webTestClient.get()
-                .uri("/api")
+                .uri("/api/decks")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Deck.class)
@@ -73,7 +68,7 @@ public class DeckControllerWebOnlyTests{
         given(cardService.getDeckByNameOfDeck("test-deck")).willReturn(Mono.just(deck));
 
         webTestClient.get()
-                .uri("/api/test-deck")
+                .uri("/api/decks/test-deck")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Deck.class)
@@ -95,7 +90,7 @@ public class DeckControllerWebOnlyTests{
                 .willReturn(Mono.just(card));
 
         webTestClient.get()
-                .uri("/api/test/name-of-card")
+                .uri("/api/decks/test/name-of-card")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Card.class)
@@ -121,7 +116,7 @@ public class DeckControllerWebOnlyTests{
 
         webTestClient.get()
                 .uri(uriBuilder ->
-                        uriBuilder.path("/api/test").queryParam("type", CardType.PRZYJACIEL).build())
+                        uriBuilder.path("/api/decks/test").queryParam("type", CardType.PRZYJACIEL).build())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Card.class)
@@ -146,7 +141,7 @@ public class DeckControllerWebOnlyTests{
                 .willReturn(Flux.fromIterable(cards));
 
         webTestClient.get()
-                .uri("/api/test/enemies/MOC")
+                .uri("/api/decks/test/enemies/MOC")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Card.class)

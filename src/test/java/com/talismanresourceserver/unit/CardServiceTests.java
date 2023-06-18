@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class CardServiceTest {
+public class CardServiceTests {
 
     @Mock
     private DeckRepository deckRepository;

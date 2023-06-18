@@ -16,7 +16,7 @@ public class DeckStatisticsController {
 
     @GetMapping("/unique")
     public Mono<DeckStatisticsDTO> getBasicStatisticsFromUniqueCards() {
-        return statisticsService.getBasicStatisticsFromUniqueCardsFromAllDecks();
+        return statisticsService.getBasicStatisticsFromUniqueCards();
     }
 
     @GetMapping("/unique/{nameOfDeck}")

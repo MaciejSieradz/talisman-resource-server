@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/decks")
 @CrossOrigin
 @AllArgsConstructor
 @Slf4j
@@ -50,11 +50,6 @@ public class DeckController {
             @PathVariable(name = "deck") String nameOfDeck,
             @PathVariable(name = "fight_statistic") FightType fightStatistic) {
         return ResponseEntity.ok(cardService.getEnemiesFromDeckByStatisticType(nameOfDeck, fightStatistic));
-    }
-
-    @GetMapping("/api/card")
-    public ResponseEntity<Mono<String>> getCard() {
-        return ResponseEntity.ok(Mono.just("Hello!"));
     }
 
     @ExceptionHandler(DeckNotFoundException.class)
