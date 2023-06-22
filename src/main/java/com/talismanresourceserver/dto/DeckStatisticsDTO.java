@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public final class DeckStatisticsDTO {
 
-    private final int numberOfCards;
+    private int numberOfCards;
 
     private int numberOfEvents;
     private int numberOfStrangers;

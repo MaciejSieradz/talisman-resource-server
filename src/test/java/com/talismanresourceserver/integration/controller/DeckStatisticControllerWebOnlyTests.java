@@ -30,7 +30,7 @@ public class DeckStatisticControllerWebOnlyTests {
 
         DeckStatisticsDTO statistics = DeckStatisticsDTO.builder(3).numberOfEnemies(2).numberOfEvents(1).build();
 
-        given(statisticsService.getBasicStatisticsFromAllCardsOfDeck(anyString())).willReturn(Mono.just(statistics));
+        given(statisticsService.getAllStatsFromDeck(anyString())).willReturn(Mono.just(statistics));
 
         webTestClient.get()
                 .uri("/api/statistics/all/deck")
